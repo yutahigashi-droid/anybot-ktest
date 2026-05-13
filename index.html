@@ -215,7 +215,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   .btn {
-    display: inline-block;
+    display: block;
     padding: 14px 32px;
     background: var(--ink);
     color: #fff;
@@ -227,6 +227,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: inherit;
     transition: background 0.2s;
     width: 100%;
+    text-align: center;
+    box-sizing: border-box;
   }
 
   .btn:hover { background: var(--accent); }
@@ -318,7 +320,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="card-name">Morning Bloom</div>
       <div class="card-desc">花のような華やかさと、シトラスの爽やかな酸味。朝に開きたい一杯。</div>
       <div class="card-price">¥2,400</div>
-      <button class="btn" onclick="goPurchase('morning-bloom')">PURCHASE</button>
+      <a class="btn" href="https://yutahigashi-droid.github.io/ktest-CV/">PURCHASE</a>
     </div>
 
     <div class="card">
@@ -327,7 +329,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="card-name">Quiet Forest</div>
       <div class="card-desc">深いコクと、ダークチョコのような余韻。静かな夜に寄り添う味。</div>
       <div class="card-price">¥2,800</div>
-      <button class="btn" onclick="goPurchase('quiet-forest')">PURCHASE</button>
+      <a class="btn" href="https://yutahigashi-droid.github.io/ktest-CV/">PURCHASE</a>
     </div>
 
     <div class="card">
@@ -336,7 +338,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="card-name">Ember Glow</div>
       <div class="card-desc">スモーキーな香ばしさと、はちみつの甘さ。焚き火のような温度感。</div>
       <div class="card-price">¥2,600</div>
-      <button class="btn" onclick="goPurchase('ember-glow')">PURCHASE</button>
+      <a class="btn" href="https://yutahigashi-droid.github.io/ktest-CV/">PURCHASE</a>
     </div>
   </div>
 </section>
@@ -344,12 +346,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer>
   © 2026 NORD COFFEE. All rights reserved. — Test Site for anybot tracking verification.
 </footer>
-
-<!-- CV発火＋遷移の検証用通知 -->
-<div class="cv-flash" id="cvFlash">
-  <strong>→ REDIRECTING TO CV PAGE</strong>
-  <span id="cvDetail">redirecting...</span>
-</div>
 
 <script>
   // URLパラメータの可視化（検証用）
@@ -362,26 +358,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   document.getElementById('visit-tag').textContent = refTracksid ? '付与済み ✓' : '未付与';
   document.getElementById('ua-info').textContent = navigator.userAgent.includes('Line') ? 'LINE Browser ✓' : 'Normal Browser';
-
-  // 購入ボタン → CV検証ページへ遷移（CVタグ発火の検証用）
-  function goPurchase(productId) {
-    const flash = document.getElementById('cvFlash');
-    document.getElementById('cvDetail').textContent = `redirecting... (product: ${productId})`;
-    flash.classList.add('show');
-
-    // CV検証ページへ遷移（ref_tracksidを引き継ぐ）
-    const cvUrl = 'https://yutahigashi-droid.github.io/ktest-CV/';
-    const params = new URLSearchParams();
-    params.set('product', productId);
-    if (refTracksid) {
-      params.set('ref_tracksid', refTracksid);
-    }
-
-    // 400ms待ってから遷移（フラッシュ通知を見せるため）
-    setTimeout(() => {
-      window.location.href = `${cvUrl}?${params.toString()}`;
-    }, 400);
-  }
 </script>
 
 </body>
